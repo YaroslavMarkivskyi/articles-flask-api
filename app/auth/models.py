@@ -1,13 +1,12 @@
-from sqlalchemy import Column, Integer, Sequence, String
+from ..settings import db
 
-from base_model import BaseModel
-from main import db
+from ..utils import UserRole
 
-class User(BaseModel):
-    """
-    Models to describe a user in system.
-    """
-    id = Column(Integer, Sequence('user_id_seq'), primary_key=True, autoincrement=True)
-    username = Column(String(20), nullable=False)
-    email = Column(String(50), nullable=False)
-    password = Column(String(128), nullable=False)
+
+class User(db.Model):
+    __tablename__ = "users"
+    id = db.Column(db.Integer, db.Sequence('user_id_seq'), primary_key=True, autoincrement=True)
+    username = db.Column(db.String(50), nullable=False, unique=True)
+    email = db.Column(db.String(50), nullable=False, unique=True)
+    role = db.Column(db.Enum(UserRole), nullable=False)
+    password = db.Column(db.String(128), nullable=False)
