@@ -1,12 +1,12 @@
 from typing import Optional
 
 from .models import Article, db
-from .serializers import ArticleDTO
+from .serializers import ArticleSerializer
 
 
 class ArticleService:
     @staticmethod
-    def create_article(dto: ArticleDTO) -> Article:
+    def create_article(dto: ArticleSerializer) -> Article:
         new_article = Article(
             id=dto.id,
             author_id=dto.author_id,
@@ -27,7 +27,7 @@ class ArticleService:
         return Article.query.get(article_id)
 
     @staticmethod
-    def update_article(article_id: int, dto: ArticleDTO) -> Article:
+    def update_article(article_id: int, dto: ArticleSerializer) -> Article:
         article = Article.query.get(article_id)
         if not article:
             raise ValueError("Article not found")

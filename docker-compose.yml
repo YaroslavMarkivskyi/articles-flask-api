@@ -4,6 +4,7 @@ services:
       context: .
     restart: always
     environment:
+      - FLASK_APP=app.main
       - DB_USER=${DB_USER}
       - DB_PASS=${DB_PASS}
       - DB_HOST=db
