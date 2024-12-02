@@ -1,8 +1,8 @@
 import click
 from flask.cli import with_appcontext
 from ..settings import db
-from ..auth.models import User  # Імпортуйте всі моделі
-from ..articles.models import Article  # Інші моделі
+from app.modules.auth.models import User  # Імпортуйте всі моделі
+from app.modules.articles.models import Article  # Інші моделі
 
 def initialize_database():
     """Функція для створення таблиць у базі даних."""

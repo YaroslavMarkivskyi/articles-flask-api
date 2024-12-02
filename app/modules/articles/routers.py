@@ -6,6 +6,7 @@ from flask_jwt_extended import jwt_required
 from .crud_services import ArticleService
 from .serializers import ArticleSerializer
 from .validators import ArticleValidator
+from .permissions import editor_required, admin_required
 
 
 articles_bp = Blueprint('articles', __name__, url_prefix='/articles')
@@ -41,6 +42,7 @@ def add_article():
 
 @articles_bp.route("/<int:article_id>", methods=[HTTPMethod.PUT])
 @jwt_required()
+@editor_required
 def update_article(article_id):
     data = request.json
     ArticleValidator.is_exist_fields(data)
@@ -56,6 +58,7 @@ def update_article(article_id):
 # TODO: SRP failed. Can't do validate and delete article.
 @articles_bp.route("/<int:article_id>", methods=[HTTPMethod.DELETE])
 @jwt_required()
+@admin_required
 def delete_article(article_id):
     ArticleService.delete_article(article_id)
     return jsonify({"message": "Book deleted successfully"}), HTTPStatus.OK

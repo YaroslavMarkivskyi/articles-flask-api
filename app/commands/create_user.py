@@ -1,10 +1,10 @@
-from ..settings import app, db
+from ..settings import db
 
 import click
 from flask.cli import with_appcontext
 from werkzeug.security import generate_password_hash
 
-from ..auth.models import User
+from app.modules.auth.models import User
 from ..utils import UserRole
 
 
