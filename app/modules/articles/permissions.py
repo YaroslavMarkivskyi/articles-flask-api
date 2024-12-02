@@ -3,7 +3,7 @@ from functools import wraps
 from flask import abort
 from app.modules.auth.models import User
 from .crud_services import ArticleService
-from app.utils import UserRole
+from app.setup.utils import UserRole
 
 
 def admin_required(fn):

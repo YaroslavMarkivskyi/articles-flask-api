@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_jwt_extended import JWTManager
 
+
 app = Flask(__name__)
 
 db_user = os.getenv("DB_USER", "")

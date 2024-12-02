@@ -1,6 +1,6 @@
 import click
 from flask.cli import with_appcontext
-from ..settings import db
+from ..setup.settings import db
 from app.modules.auth.models import User  # Імпортуйте всі моделі
 from app.modules.articles.models import Article  # Інші моделі
 

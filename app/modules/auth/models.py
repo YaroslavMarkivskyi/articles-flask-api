@@ -1,4 +1,4 @@
-from app.settings import db
+from app.setup.settings import db
 
 # from app.utils import UserRole
 

@@ -1,4 +1,4 @@
-from .settings import app
+from .setup.settings import app
 from .modules.auth import auth_bp
 from .modules.articles import articles_bp
 from .commands.create_user import create_user
