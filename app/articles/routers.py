@@ -15,7 +15,7 @@ articles_bp = Blueprint('articles', __name__, url_prefix='/articles')
 @jwt_required()
 def get_articles():
     entity_articles = ArticleService.get_all_articles()
-    json_articles = [ArticleSerializer.from_entity(article) for article in entity_articles]
+    json_articles = [ArticleSerializer.to_dict(article) for article in entity_articles]
     return jsonify({"articles": json_articles}), HTTPStatus.OK
 
 
@@ -24,7 +24,7 @@ def get_articles():
 def get_article(article_id):
     entity_article = ArticleService.get_article_by_id(article_id)
     ArticleValidator.is_exist_article(entity_article)
-    json_article = ArticleSerializer.from_entity(entity_article)
+    json_article = ArticleSerializer.to_dict(entity_article)
     return jsonify(json_article), HTTPStatus.OK
 
 
@@ -35,7 +35,7 @@ def add_article():
     ArticleValidator.is_exist_fields(data)
     dto_article = ArticleSerializer.from_dict(data)
     entity_article = ArticleService.create_article(dto_article)
-    json_article = ArticleSerializer.from_entity(entity_article)
+    json_article = ArticleSerializer.to_dict(entity_article)
     return jsonify(json_article), HTTPStatus.CREATED
 
 
@@ -49,7 +49,7 @@ def update_article(article_id):
     ArticleValidator.is_exist_article(dto_article)
 
     entity_article = ArticleService.update_article(article_id, dto_article)
-    json_article = ArticleSerializer.from_entity(entity_article)
+    json_article = ArticleSerializer.to_dict(entity_article)
     return jsonify(json_article), HTTPStatus.OK
 
 

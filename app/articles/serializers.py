@@ -26,6 +26,6 @@ class ArticleSerializer:
             "id": self.id,
             "author_id": self.author_id,
             "title": self.title,
-            "slug": self.slug,
+            "description": self.description,
             "body": self.body
         }

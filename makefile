@@ -1,0 +1,1 @@
+flask --app app.main create-user
