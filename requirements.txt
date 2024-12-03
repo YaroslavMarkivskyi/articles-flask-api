@@ -1,0 +1,8 @@
+flask
+flasgger
+gunicorn
+flask_sqlalchemy
+flask_jwt_extended
+psycopg2
+faker
+flask-cors

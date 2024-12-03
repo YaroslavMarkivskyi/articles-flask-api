@@ -1,0 +1,62 @@
+name: Deploy to Production
+
+on:
+    workflow_call:
+      secrets:
+        DOCKERHUB_USER:
+          required: true
+        DOCKERHUB_TOKEN:
+          required: true
+        VM_HOST:
+          required: true
+        VM_USERNAME:
+          required: true
+        VM_PRIVATE_KEY:
+          required: true
+        VM_PORT:
+          required: true
+        DB_PASS:
+          required: true
+        DJANGO_SECRET_KEY:
+          required: true
+        DD_API_KEY:
+          required: true
+      inputs:
+        WORK_APP_DIR:
+          required: true
+          type: string
+        DB_NAME:
+          required: true
+          type: string
+        DB_USER:
+          required: true
+          type: string
+
+jobs:
+  deploy:
+    name: Deploy Application
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: SSH Connect to VM and Deploy
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USERNAME }}
+          key: ${{ secrets.VM_PRIVATE_KEY }}
+          port: ${{ secrets.VM_PORT }}
+          script: |
+            cd ${{ vars.WORK_APP_DIR }}
+            git pull origin main
+            docker-compose pull
+            docker-compose down
+
+            echo "DB_NAME=${{ vars.DB_NAME }}" >> .env
+            echo "DB_USER=${{ vars.DB_USER }}" >> .env
+            echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
+            echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
+            echo "DJANGO_ALLOWED_HOSTS=${{ secrets.VM_HOST }}" >> .env
+
+            docker-compose -f docker-compose-deploy.yml up -d --build

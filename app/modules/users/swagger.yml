@@ -1,0 +1,153 @@
+paths:
+  /:
+    get:
+      summary: "Retrieve all users"
+      responses:
+        200:
+          description: "A list of all users"
+          schema:
+            type: object
+            properties:
+              users:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    username:
+                      type: string
+                    email:
+                      type: string
+    post:
+      summary: "Register a new user"
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+            example:
+              username: "johndoe"
+              email: "johndoe@example.com"
+              password: "securepassword"
+      responses:
+        201:
+          description: "The newly registered user"
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              username:
+                type: string
+              email:
+                type: string
+
+  /{user_id}:
+    get:
+      summary: "Retrieve a specific user by ID"
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "Details of the specified user"
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              username:
+                type: string
+              email:
+                type: string
+        404:
+          description: "User not found"
+    put:
+      summary: "Update an existing user"
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          type: integer
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: "The updated user information"
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              username:
+                type: string
+              email:
+                type: string
+        404:
+          description: "User not found"
+    delete:
+      summary: "Delete a user"
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "User deletion confirmation"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        404:
+          description: "User not found"
+
+  /login:
+    post:
+      summary: "Log in a user and generate an access token"
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+            example:
+              username: "johndoe"
+              password: "securepassword"
+      responses:
+        200:
+          description: "Access token for the authenticated user"
+          schema:
+            type: object
+            properties:
+              access_token:
+                type: string
+        401:
+          description: "Invalid username or password"
