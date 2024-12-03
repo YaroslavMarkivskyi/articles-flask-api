@@ -1,6 +1,8 @@
-from flask import abort
-from .models import Article
 from http import HTTPStatus
+
+from flask import abort
+
+from .models import Article
 
 
 class ArticleValidator:
@@ -14,12 +16,14 @@ class ArticleValidator:
         if not data:
             abort(HTTPStatus.BAD_REQUEST, description="Body is empty!")
         if (
-            'author_id' not in data or
-            'title' not in data or
-            'description' not in data or
-            'body' not in data
+            "author_id" not in data
+            or "title" not in data
+            or "description" not in data
+            or "body" not in data
         ):
-            abort(HTTPStatus.BAD_REQUEST, description="Missing data for required fields")
+            abort(
+                HTTPStatus.BAD_REQUEST, description="Missing data for required fields"
+            )
 
     @staticmethod
     def is_article_owner(user_id, **kwargs):

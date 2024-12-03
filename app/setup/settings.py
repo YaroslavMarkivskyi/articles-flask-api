@@ -1,11 +1,12 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 import os
-from flask_jwt_extended import JWTManager
-from flask_cors import CORS
-from flasgger import Swagger
-from .swagger_config import swagger_info
 
+from flasgger import Swagger
+from flask import Flask
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager
+from flask_sqlalchemy import SQLAlchemy
+
+from .swagger_config import swagger_info
 
 app = Flask(__name__)
 
@@ -19,7 +20,7 @@ db_name = os.getenv("DB_NAME", "")
 DATABASE_URL = f"postgresql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
 
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
-app.config['SECRET_KEY'] = os.getenv("APP_SECRET_KEY", "")
+app.config["SECRET_KEY"] = os.getenv("APP_SECRET_KEY", "")
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "default_secret")
 
 jwt = JWTManager(app)

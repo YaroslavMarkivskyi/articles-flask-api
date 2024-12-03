@@ -1,9 +1,12 @@
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.setup.settings import db
-from ..models import Article
+
 from app.modules.users.models import User
+from app.setup.settings import db
+
+from ..models import Article
+
 
 @pytest.fixture(scope="module")
 def test_engine():
@@ -23,7 +26,12 @@ def session(test_engine):
 
 
 def test_create_article(session):
-    user = User(username="testuser", email="test@example.com", role="admin", password="hashed_password")
+    user = User(
+        username="testuser",
+        email="test@example.com",
+        role="admin",
+        password="hashed_password",
+    )
     session.add(user)
     session.commit()
 
@@ -31,7 +39,7 @@ def test_create_article(session):
         author_id=user.id,
         title="Test Article",
         description="This is a test description",
-        body="This is the body of the test article"
+        body="This is the body of the test article",
     )
     session.add(article)
     session.commit()
@@ -43,7 +51,12 @@ def test_create_article(session):
 
 
 def test_update_article(session):
-    user = User(username="testuser2", email="test2@example.com", role="admin", password="hashed_password")
+    user = User(
+        username="testuser2",
+        email="test2@example.com",
+        role="admin",
+        password="hashed_password",
+    )
     session.add(user)
     session.commit()
 
@@ -51,7 +64,7 @@ def test_update_article(session):
         author_id=user.id,
         title="Test Article",
         description="This is a test description",
-        body="This is the body of the test article"
+        body="This is the body of the test article",
     )
     session.add(article)
     session.commit()
@@ -59,14 +72,21 @@ def test_update_article(session):
     article.title = "Updated Test Article"
     session.commit()
 
-    updated_article = session.query(Article).filter_by(title="Updated Test Article").first()
+    updated_article = (
+        session.query(Article).filter_by(title="Updated Test Article").first()
+    )
     assert updated_article is not None
     assert updated_article.title == "Updated Test Article"
 
 
 def test_delete_article(session):
     # Створення користувача
-    user = User(username="testuser3", email="test3@example.com", role="admin", password="hashed_password")
+    user = User(
+        username="testuser3",
+        email="test3@example.com",
+        role="admin",
+        password="hashed_password",
+    )
     session.add(user)
     session.commit()
 
@@ -75,7 +95,7 @@ def test_delete_article(session):
         author_id=user.id,
         title="Delete Article",
         description="This is a test description",
-        body="This is the body of the test article"
+        body="This is the body of the test article",
     )
     session.add(article)
     session.commit()
@@ -87,9 +107,13 @@ def test_delete_article(session):
     assert deleted_article is None
 
 
-
 def test_article_relationship(session):
-    user = User(username="testuser4", email="test4@example.com", role="admin", password="hashed_password")
+    user = User(
+        username="testuser4",
+        email="test4@example.com",
+        role="admin",
+        password="hashed_password",
+    )
     session.add(user)
     session.commit()
 
@@ -97,7 +121,7 @@ def test_article_relationship(session):
         author_id=user.id,
         title="Test Article",
         description="This is a test description",
-        body="This is the body of the test article"
+        body="This is the body of the test article",
     )
     session.add(article)
     session.commit()

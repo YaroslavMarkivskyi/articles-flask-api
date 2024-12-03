@@ -1,8 +1,10 @@
+from http import HTTPStatus
 from typing import Optional
+
 from flask import abort
+
 from .models import User, db
 from .serializers import UserSerializer
-from http import HTTPStatus
 
 
 class UserService:

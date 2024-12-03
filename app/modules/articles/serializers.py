@@ -20,12 +20,11 @@ class ArticleSerializer:
             body=data["body"],
         )
 
-
     def to_dict(self):
         return {
             "id": self.id,
             "author_id": self.author_id,
             "title": self.title,
             "description": self.description,
-            "body": self.body
+            "body": self.body,
         }

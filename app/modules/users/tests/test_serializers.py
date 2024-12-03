@@ -1,5 +1,6 @@
 from app.modules.users.serializers import UserSerializer
 
+
 # Тест для методу from_dict
 def test_from_dict():
     # Тестовий словник
@@ -8,7 +9,7 @@ def test_from_dict():
         "username": "testuser",
         "email": "testuser@example.com",
         "role": "ADMIN",
-        "password": "hashed_password"
+        "password": "hashed_password",
     }
 
     user_serializer = UserSerializer.from_dict(data)
@@ -26,7 +27,7 @@ def test_to_dict():
         username="testuser",
         email="testuser@example.com",
         role="ADMIN",
-        password="hashed_password"
+        password="hashed_password",
     )
 
     result = user_serializer.to_dict()
@@ -35,7 +36,7 @@ def test_to_dict():
         "id": 1,
         "username": "testuser",
         "email": "testuser@example.com",
-        "role": "ADMIN"
+        "role": "ADMIN",
     }
 
     assert "password" not in result
@@ -46,7 +47,7 @@ def test_optional_id():
         "username": "testuser2",
         "email": "testuser2@example.com",
         "role": "EDITOR",
-        "password": "hashed_password"
+        "password": "hashed_password",
     }
 
     user_serializer = UserSerializer.from_dict(data)

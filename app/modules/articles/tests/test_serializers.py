@@ -1,5 +1,6 @@
 from app.modules.articles.serializers import ArticleSerializer
 
+
 # Тест для методу from_dict
 def test_from_dict():
     # Тестовий словник
@@ -8,7 +9,7 @@ def test_from_dict():
         "author_id": 2,
         "title": "Test Article",
         "description": "This is a test article.",
-        "body": "This is the body of the test article."
+        "body": "This is the body of the test article.",
     }
 
     article_serializer = ArticleSerializer.from_dict(data)
@@ -19,6 +20,7 @@ def test_from_dict():
     assert article_serializer.description == "This is a test article."
     assert article_serializer.body == "This is the body of the test article."
 
+
 # Тест для методу to_dict
 def test_to_dict():
     article_serializer = ArticleSerializer(
@@ -26,7 +28,7 @@ def test_to_dict():
         author_id=2,
         title="Test Article",
         description="This is a test article.",
-        body="This is the body of the test article."
+        body="This is the body of the test article.",
     )
 
     result = article_serializer.to_dict()
@@ -36,8 +38,9 @@ def test_to_dict():
         "author_id": 2,
         "title": "Test Article",
         "description": "This is a test article.",
-        "body": "This is the body of the test article."
+        "body": "This is the body of the test article.",
     }
+
 
 # Тест для відсутнього id
 def test_optional_id():
@@ -45,7 +48,7 @@ def test_optional_id():
         "author_id": 2,
         "title": "Test Article",
         "description": "This is a test article.",
-        "body": "This is the body of the test article."
+        "body": "This is the body of the test article.",
     }
 
     article_serializer = ArticleSerializer.from_dict(data)

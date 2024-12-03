@@ -1,20 +1,16 @@
-from flask import request, jsonify, abort
-from http import HTTPStatus, HTTPMethod
-from flask_jwt_extended import (
-    create_access_token,
-    jwt_required,
-    get_jwt_identity,
-)
-from flask import Blueprint
+from http import HTTPMethod, HTTPStatus
 
-from .models import User
-from .crud_services import UserService
-from .serializers import UserSerializer
-from .permissions import admin_required, editor_required
-from .validators import UserValidator
 from flasgger import swag_from
+from flask import Blueprint, abort, jsonify, request
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 
-users_bp = Blueprint('users', __name__, url_prefix='/users')
+from .crud_services import UserService
+from .models import User
+from .permissions import admin_required, editor_required
+from .serializers import UserSerializer
+from .validators import UserValidator
+
+users_bp = Blueprint("users", __name__, url_prefix="/users")
 
 
 @users_bp.route("/", methods=[HTTPMethod.GET])
@@ -24,6 +20,7 @@ def get_users():
     entity_users = UserService.get_all_users()
     json_users = [UserSerializer.to_dict(user) for user in entity_users]
     return jsonify({"users": json_users}), HTTPStatus.OK
+
 
 @users_bp.route("/", methods=[HTTPMethod.POST])
 @jwt_required()
@@ -64,7 +61,7 @@ def update_user(user_id):
     return jsonify(json_user), HTTPStatus.OK
 
 
-@users_bp.route("/<int:user_id>",  methods=[HTTPMethod.DELETE])
+@users_bp.route("/<int:user_id>", methods=[HTTPMethod.DELETE])
 @jwt_required()
 @admin_required
 @swag_from("./swagger.yml")
@@ -75,7 +72,7 @@ def delete_user(user_id):
     return jsonify({"message": "User deleted successfully"}), HTTPStatus.OK
 
 
-@users_bp.route('/login', methods=['POST'])
+@users_bp.route("/login", methods=["POST"])
 @swag_from("./swagger.yml")
 def login():
     data = request.get_json()

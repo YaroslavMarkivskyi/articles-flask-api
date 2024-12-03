@@ -21,3 +21,24 @@ seed-users:
 
 seed-articles:
 	docker compose run --rm app flask seed-articles --count 20
+
+flake8:
+	docker compose  exec app flake8 .
+
+black-check:
+	docker compose  exec app black --check .
+
+black-diff:
+	docker compose exec app black --diff .
+
+black:
+	docker compose exec app black .
+
+isort-check:
+	docker compose exec app isort . --check-only
+
+isort-diff:
+	docker compose exec app isort . --diff .
+
+isort:
+	docker compose exec app isort .

@@ -1,19 +1,18 @@
-from flask import request, jsonify
-from http import HTTPStatus, HTTPMethod
-from flask import Blueprint
-from flask_jwt_extended import jwt_required
+from http import HTTPMethod, HTTPStatus
+
 from flasgger import swag_from
+from flask import Blueprint, jsonify, request
+from flask_jwt_extended import jwt_required
 
 from .crud_services import ArticleService
+from .permissions import admin_required, editor_required
 from .serializers import ArticleSerializer
 from .validators import ArticleValidator
-from .permissions import editor_required, admin_required
+
+articles_bp = Blueprint("articles", __name__, url_prefix="/articles")
 
 
-articles_bp = Blueprint('articles', __name__, url_prefix='/articles')
-
-
-@articles_bp.route('/', methods=[HTTPMethod.GET])
+@articles_bp.route("/", methods=[HTTPMethod.GET])
 @jwt_required()
 @swag_from("./swagger.yml")
 def get_articles():

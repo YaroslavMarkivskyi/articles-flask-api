@@ -27,5 +27,5 @@ class UserSerializer:
             "id": self.id,
             "username": self.username,
             "email": self.email,
-            "role": self.role
+            "role": self.role,
         }

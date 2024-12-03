@@ -1,7 +1,9 @@
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
 from app.setup.settings import db
+
 from ..models import User
 
 
@@ -23,7 +25,12 @@ def session(test_engine):
 
 
 def test_create_user(session):
-    user = User(username="testuser", email="test@example.com", role="admin", password="hashed_password")
+    user = User(
+        username="testuser",
+        email="test@example.com",
+        role="admin",
+        password="hashed_password",
+    )
     session.add(user)
     session.commit()
 
@@ -34,8 +41,18 @@ def test_create_user(session):
 
 
 def test_unique_constraints(session):
-    user1 = User(username="user1", email="duplicate@example.com", role="admin", password="hashed_password")
-    user2 = User(username="user2", email="duplicate@example.com", role="viewer", password="hashed_password")
+    user1 = User(
+        username="user1",
+        email="duplicate@example.com",
+        role="admin",
+        password="hashed_password",
+    )
+    user2 = User(
+        username="user2",
+        email="duplicate@example.com",
+        role="viewer",
+        password="hashed_password",
+    )
 
     session.add(user1)
     session.commit()
@@ -46,7 +63,12 @@ def test_unique_constraints(session):
 
 
 def test_update_user(session):
-    user = User(username="testuser1", email="test1@example.com", role="admin", password="hashed_password")
+    user = User(
+        username="testuser1",
+        email="test1@example.com",
+        role="admin",
+        password="hashed_password",
+    )
     session.add(user)
     session.commit()
 
@@ -58,7 +80,12 @@ def test_update_user(session):
 
 
 def test_delete_user(session):
-    user = User(username="testuse2", email="test2@example.com", role="admin", password="hashed_password")
+    user = User(
+        username="testuse2",
+        email="test2@example.com",
+        role="admin",
+        password="hashed_password",
+    )
     session.add(user)
     session.commit()
 

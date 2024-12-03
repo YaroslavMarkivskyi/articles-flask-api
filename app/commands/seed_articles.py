@@ -1,11 +1,12 @@
-from app.setup.settings import db
-import click
-from flask.cli import with_appcontext
 import sys
-from app.modules.users.models import User
-from app.modules.articles.models import Article
-from faker import Faker
 
+import click
+from faker import Faker
+from flask.cli import with_appcontext
+
+from app.modules.articles.models import Article
+from app.modules.users.models import User
+from app.setup.settings import db
 
 fake = Faker()
 
@@ -14,8 +15,9 @@ def get_all_user_ids():
     user_ids = db.session.query(User.id).all()  # Запитуємо всі id користувачів
     return [user_id[0] for user_id in user_ids]
 
-@click.command('seed-articles')
-@click.option('--count', default=2, type=int, help='Number of articles to create')
+
+@click.command("seed-articles")
+@click.option("--count", default=2, type=int, help="Number of articles to create")
 def seed_articles(count):
     # Отримуємо всі id користувачів
     users_id = get_all_user_ids()
@@ -31,10 +33,7 @@ def seed_articles(count):
 
         # Створення нового запису статті
         article = Article(
-            author_id=author_id,
-            title=title,
-            description=description,
-            body=body
+            author_id=author_id, title=title, description=description, body=body
         )
 
         # Додавання статті в сесію
@@ -42,4 +41,4 @@ def seed_articles(count):
 
     # Підтвердження змін в базі даних
     db.session.commit()
-    click.echo(f'{count} articles have been created successfully!')
+    click.echo(f"{count} articles have been created successfully!")

@@ -1,17 +1,17 @@
+import pytest
 from flask import Flask
 
-import pytest
+from app.modules.articles.crud_services import ArticleService
 from app.modules.articles.models import Article, db
 from app.modules.articles.serializers import ArticleSerializer
-from app.modules.articles.crud_services import ArticleService
 from app.modules.users.models import User
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
     with app.app_context():
         db.create_all()
@@ -27,12 +27,23 @@ def client(app):
 
 @pytest.fixture
 def valid_article_dto():
-    return ArticleSerializer(id=1, author_id=1, title="Test Article", description="Test Description", body="Test Body")
+    return ArticleSerializer(
+        id=1,
+        author_id=1,
+        title="Test Article",
+        description="Test Description",
+        body="Test Body",
+    )
 
 
 @pytest.fixture
 def existing_user():
-    user = User(username="existinguser", email="existing@example.com", role="user", password="hashed_password")
+    user = User(
+        username="existinguser",
+        email="existing@example.com",
+        role="user",
+        password="hashed_password",
+    )
     db.session.add(user)
     db.session.commit()
     return user
@@ -40,7 +51,12 @@ def existing_user():
 
 @pytest.fixture
 def existing_article(existing_user):
-    article = Article(author_id=existing_user.id, title="Existing Article", description="Existing Description", body="Existing Body")
+    article = Article(
+        author_id=existing_user.id,
+        title="Existing Article",
+        description="Existing Description",
+        body="Existing Body",
+    )
     db.session.add(article)
     db.session.commit()
     return article
@@ -71,11 +87,13 @@ def test_get_article_by_title(client, valid_article_dto):
 
 
 def test_update_article(client, valid_article_dto):
-    updated_dto = ArticleSerializer(id=valid_article_dto.id,
-                                    author_id=valid_article_dto.author_id,
-                                    title="Updated Title",
-                                    description="Updated Description",
-                                    body="Updated Body")
+    updated_dto = ArticleSerializer(
+        id=valid_article_dto.id,
+        author_id=valid_article_dto.author_id,
+        title="Updated Title",
+        description="Updated Description",
+        body="Updated Body",
+    )
     updated_article = ArticleService.update_article(valid_article_dto.id, updated_dto)
     assert updated_article.title == "Updated Title"
     assert updated_article.description == "Updated Description"
@@ -83,7 +101,13 @@ def test_update_article(client, valid_article_dto):
 
 
 def test_update_article_not_found(client):
-    invalid_dto = ArticleSerializer(id=999, author_id=1, title="Nonexistent Article", description="None", body="None")
+    invalid_dto = ArticleSerializer(
+        id=999,
+        author_id=1,
+        title="Nonexistent Article",
+        description="None",
+        body="None",
+    )
     with pytest.raises(ValueError):
         ArticleService.update_article(999, invalid_dto)
 

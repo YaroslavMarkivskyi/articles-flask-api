@@ -1,7 +1,7 @@
-from flask import abort
 from http import HTTPStatus
-from werkzeug.security import check_password_hash
 
+from flask import abort
+from werkzeug.security import check_password_hash
 
 
 class UserValidator:
@@ -15,12 +15,14 @@ class UserValidator:
         if not data:
             abort(HTTPStatus.BAD_REQUEST, description="Body is empty!")
         if (
-            'username' not in data or
-            'email' not in data or
-            'password' not in data or
-            'role' not in data
+            "username" not in data
+            or "email" not in data
+            or "password" not in data
+            or "role" not in data
         ):
-            abort(HTTPStatus.BAD_REQUEST, description="Missing data for required fields")
+            abort(
+                HTTPStatus.BAD_REQUEST, description="Missing data for required fields"
+            )
 
     @staticmethod
     def is_exist_username(username):
