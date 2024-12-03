@@ -2,7 +2,7 @@ build-dev:
 	docker compose up --build -d --remove-orphans
 
 build-prod:
-	docker compose up -f docker-compose-deploy.yml --build -d --remove-orphans
+	docker compose  -f docker-compose-deploy.yml up --build -d --remove-orphans
 
 up:
 	docker compose  up -d

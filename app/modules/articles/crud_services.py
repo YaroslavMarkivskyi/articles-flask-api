@@ -28,7 +28,7 @@ class ArticleService:
 
     @staticmethod
     def get_article_by_title(title) -> Optional[Article]:
-        return Article.query.filter_by(title=title)
+        return Article.query.filter_by(title=title).first()
 
     @staticmethod
     def update_article(article_id: int, dto: ArticleSerializer) -> Article:

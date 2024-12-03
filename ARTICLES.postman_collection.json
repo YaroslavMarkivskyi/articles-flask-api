@@ -1,0 +1,413 @@
+{
+	"info": {
+		"_postman_id": "d911c820-d3a1-452b-99e2-0fc6808fc627",
+		"name": "ARTICLES",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29971489"
+	},
+	"item": [
+		{
+			"name": "articles",
+			"item": [
+				{
+					"name": "get articles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{article_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{article_host}}articles/",
+							"protocol": "http",
+							"host": [
+								"{{article_host}}articles"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get article by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{article_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{article_host}}articles/3",
+							"protocol": "http",
+							"host": [
+								"{{article_host}}articles"
+							],
+							"path": [
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create article",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{article_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"author_id\": 1,\r\n    \"title\": \"MyFirstArticle\",\r\n    \"description\": \"This is the description of my first article.\",\r\n    \"body\": \"Here is  It can contain multiple paragraphs and other content.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{article_host}}articles",
+							"protocol": "http",
+							"host": [
+								"{{article_host}}articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update article",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{article_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"author_id\": 1,\r\n    \"title\": \"My Update Article\",\r\n    \"description\": \"This is the description of my update article.\",\r\n    \"body\": \"Here is  It can contain multiple paragraphs and other content.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{article_host}}articles/3",
+							"protocol": "http",
+							"host": [
+								"{{article_host}}articles"
+							],
+							"path": [
+								"3"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzE0NTk0OSwianRpIjoiYzdmOGY1MzMtYjY1Yi00NTE2LWE5NjktNmYwYzg5MWI2Y2Q2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3MzMxNDU5NDksImNzcmYiOiJhNTQxMGVjNi0xZGRkLTQ0ZDktYWE3MC0xMGE1N2E5NDg4MzkiLCJleHAiOjE3MzMxNDY4NDl9.N0MJqLvbUtqSVg3iHnXU-IiHg3WTu8tDXwuBznxxILU",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete article",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{article_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{article_host}}articles/4",
+							"protocol": "http",
+							"host": [
+								"{{article_host}}articles"
+							],
+							"path": [
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get article by title",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{article_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{article_host}}articles/search?title=MyFirstArticle",
+							"protocol": "http",
+							"host": [
+								"{{article_host}}articles"
+							],
+							"path": [
+								"search"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "MyFirstArticle"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "login admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{article_host}}users/login",
+							"protocol": "http",
+							"host": [
+								"{{article_host}}users"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login editor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"editor\",\r\n    \"password\": \"editor\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{article_host}}users/login",
+							"protocol": "http",
+							"host": [
+								"{{article_host}}users"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login editor viewer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"viewer\",\r\n    \"password\": \"viewer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{article_host}}users/login",
+							"protocol": "http",
+							"host": [
+								"{{article_host}}users"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{article_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{article_host}}users/",
+							"protocol": "http",
+							"host": [
+								"{{article_host}}users"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get users by username",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{article_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{article_host}}users/search?username=admin",
+							"protocol": "http",
+							"host": [
+								"{{article_host}}users"
+							],
+							"path": [
+								"search"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "admin"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://{{article_host}}users/",
+							"protocol": "http",
+							"host": [
+								"{{article_host}}users"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{article_host}}users/3",
+							"protocol": "http",
+							"host": [
+								"{{article_host}}users"
+							],
+							"path": [
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://{{article_host}}users/4",
+							"protocol": "http",
+							"host": [
+								"{{article_host}}users"
+							],
+							"path": [
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{article_host}}users/5",
+							"protocol": "http",
+							"host": [
+								"{{article_host}}users"
+							],
+							"path": [
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

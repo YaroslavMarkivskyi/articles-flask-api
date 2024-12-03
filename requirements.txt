@@ -6,9 +6,3 @@ flask_jwt_extended
 psycopg2
 faker
 flask-cors
-pytest-flask
-pytest
-pytest-cov
-black
-flake8
-isort

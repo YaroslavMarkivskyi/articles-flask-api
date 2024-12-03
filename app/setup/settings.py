@@ -6,7 +6,6 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 
-from .swagger_config import swagger_info
 
 app = Flask(__name__)
 
@@ -42,4 +41,4 @@ swagger_config = {
     "specs_route": "/swagger/",
 }
 
-swagger = Swagger(app, config=swagger_config, template=swagger_info)
+swagger = Swagger(app, config=swagger_config)

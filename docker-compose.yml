@@ -2,6 +2,8 @@ services:
   app:
     build:
       context: .
+      args:
+      - DEV=true
     restart: always
     environment:
       - FLASK_APP=app.main
@@ -16,9 +18,9 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - .:/app  # Монтуємо робочу директорію в контейнер
-      - /app/venv  # Опціонально: ізолюємо віртуальне середовище (якщо використовується)
-    command: flask run --host=0.0.0.0 --port=8000 --reload  # Автоматичне перезавантаження
+      - .:/app
+      - /app/venv
+    command: flask run --host=0.0.0.0 --port=8000 --reload
 
   db:
     image: postgres:13-alpine
