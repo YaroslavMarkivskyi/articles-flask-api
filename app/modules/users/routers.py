@@ -19,7 +19,7 @@ users_bp = Blueprint("users", __name__, url_prefix="/users")
 
 @users_bp.route("/", methods=[HTTPMethod.GET])
 @jwt_required()
-@swag_from("./swagger.yml")
+@swag_from("./swagger.yml", methods=[HTTPMethod.GET])
 def get_users():
     entity_users = UserService.get_all_users()
     json_users = [UserSerializer.to_dict(user) for user in entity_users]

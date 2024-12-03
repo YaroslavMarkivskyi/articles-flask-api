@@ -68,4 +68,38 @@ A file with the main project dependencies needed to get the project up and runni
 
 
  ## CI/CD:
- 
+ created :
+ - main.yml: file that describes the main processes. Namely: test and lint; build and deploy.
+- test-and-lint.yml: is responsible for testing and checking the quality of the code.
+- build.yml: file is responsible for building the project;
+- deploy.yml: file is responsible for deploying the project to aws ec2.
+
+#### github secrets and variables actions are used to save variables and secrets.
+
+github link: https://github.com/YaroslavMarkivskyi/articles-flask-api.git
+aws: http://3.75.220.101:8000/
+
+
+## 📦 Installation
+Clone the repository:
+```bash
+git clone https://github.com/YaroslavMarkivskyi/articles-flask-api.git
+```
+Navigate to the project directory:
+```bash
+cd articles-flask-api
+```
+Set up and run the application using Docker Compose:
+```bash
+docker-compose -f docker-compose-deploy.yml up --build
+```
+Access the application at
+[http://localhost:8000/](http://localhost:8000/)
+
+or if you have `make` you can use Makefile:
+- make build-dev  - for the development environment
+- make build-prod - for the production environment
+and more commands you can see in makefile
+
+
+
