@@ -84,7 +84,7 @@ def test_get_article_by_id(client, valid_article_dto):
 def test_get_article_by_title(client, valid_article_dto):
     article = ArticleService.get_article_by_title(
         valid_article_dto.title
-    ).first()
+    )
     assert article.title == valid_article_dto.title
 
 
