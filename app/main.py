@@ -17,6 +17,5 @@ app.cli.add_command(seed_users)
 app.cli.add_command(seed_articles)
 
 
-
 if __name__ == "__main__":
     app.run()
