@@ -4,7 +4,7 @@ import click
 from flask.cli import with_appcontext
 from werkzeug.security import generate_password_hash
 
-from app.modules.auth.models import User
+from app.modules.users.models import User
 from ..setup.utils import UserRole
 
 

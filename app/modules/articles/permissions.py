@@ -1,7 +1,7 @@
 from flask_jwt_extended import get_jwt_identity
 from functools import wraps
 from flask import abort
-from app.modules.auth.models import User
+from app.modules.users.models import User
 from .crud_services import ArticleService
 from app.setup.utils import UserRole
 

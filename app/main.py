@@ -1,12 +1,12 @@
 from .setup.settings import app
-from .modules.auth import auth_bp
+from .modules.users import users_bp
 from .modules.articles import articles_bp
 from .commands.create_user import create_user
 from .commands.init_database import init_db_command
 
 from flasgger import Swagger
 
-app.register_blueprint(auth_bp)
+app.register_blueprint(users_bp)
 app.register_blueprint(articles_bp)
 
 
