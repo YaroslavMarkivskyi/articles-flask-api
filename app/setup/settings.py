@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+from flasgger import Swagger
+from .swagger_config import swagger_info
 
 
 app = Flask(__name__)
@@ -23,3 +25,20 @@ app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "default_secret")
 jwt = JWTManager(app)
 db = SQLAlchemy(app)
 CORS(app)
+
+swagger_config = {
+    "headers": [],
+    "specs": [
+        {
+            "endpoint": "apispec_1",
+            "route": "/apispec_1.json",
+            "rule_filter": lambda rule: True,  # Include all endpoints
+            "model_filter": lambda tag: True,  # Include all models
+        }
+    ],
+    "static_url_path": "/flasgger_static",
+    "swagger_ui": True,
+    "specs_route": "/swagger/",
+}
+
+swagger = Swagger(app, config=swagger_config, template=swagger_info)
