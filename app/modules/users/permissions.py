@@ -2,7 +2,7 @@ from flask_jwt_extended import get_jwt_identity
 from functools import wraps
 from flask import abort
 from app.modules.users.models import User
-from .crud_services import ArticleService
+from .crud_services import UserService
 from app.setup.utils import UserRole
 
 
@@ -28,9 +28,9 @@ def editor_required(fn):
         if user.role in (UserRole.ADMIN.value, UserRole.EDITOR.value):
             return fn(*args, **kwargs)
 
-        article_id = kwargs.get("article_id")
-        author_id = ArticleService.get_article_by_id(article_id).author_id
-        if author_id != user_id:
+        user_model_id = kwargs.get("user_id")
+        user_model_id = UserService.get_user_by_id(user_model_id).id
+        if user_model_id != user_id:
             return fn(*args, **kwargs)
         abort(403, description="Access denied: user not found")
     return wrapper

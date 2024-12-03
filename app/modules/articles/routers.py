@@ -32,6 +32,16 @@ def get_article(article_id):
     return jsonify(json_article), HTTPStatus.OK
 
 
+@articles_bp.route("/search/<str:title>", methods=[HTTPMethod.GET])
+@jwt_required()
+@swag_from("./swagger.yml")
+def get_article_by_title(title):
+    entity_article = ArticleService.get_article_by_title(title)
+    ArticleValidator.is_exist_article(entity_article)
+    json_article = ArticleSerializer.to_dict(entity_article)
+    return jsonify(json_article), HTTPStatus.OK
+
+
 @articles_bp.route("/", methods=[HTTPMethod.POST])
 @jwt_required()
 @swag_from("./swagger.yml")
@@ -60,11 +70,12 @@ def update_article(article_id):
     return jsonify(json_article), HTTPStatus.OK
 
 
-# TODO: SRP failed. Can't do validate and delete article.
 @articles_bp.route("/<int:article_id>", methods=[HTTPMethod.DELETE])
 @jwt_required()
 @admin_required
 @swag_from("./swagger.yml")
 def delete_article(article_id):
+    entity_article = ArticleService.get_article_by_id(article_id)
+    ArticleValidator.is_exist_article(entity_article)
     ArticleService.delete_article(article_id)
-    return jsonify({"message": "Book deleted successfully"}), HTTPStatus.OK
+    return jsonify({"message": "Article deleted successfully"}), HTTPStatus.OK
