@@ -1,14 +1,13 @@
 import click
 from flask.cli import with_appcontext
 
-from app.modules.articles.models import Article  # Інші моделі
-from app.modules.users.models import User  # Імпортуйте всі моделі
+from app.modules.articles.models import Article  # noqa: F401
+from app.modules.users.models import User  # noqa: F401
 
 from ..setup.settings import db
 
 
 def initialize_database():
-    """Функція для створення таблиць у базі даних."""
     try:
         db.create_all()
         print("Database initialized successfully.")
@@ -19,5 +18,4 @@ def initialize_database():
 @click.command("init-db")
 @with_appcontext
 def init_db_command():
-    """Ініціалізує базу даних."""
     initialize_database()

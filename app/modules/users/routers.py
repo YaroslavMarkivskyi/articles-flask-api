@@ -1,8 +1,12 @@
 from http import HTTPMethod, HTTPStatus
 
 from flasgger import swag_from
-from flask import Blueprint, abort, jsonify, request
-from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
+from flask import Blueprint, jsonify, request
+from flask_jwt_extended import (
+    create_access_token,
+    get_jwt_identity,
+    jwt_required,
+)
 
 from .crud_services import UserService
 from .models import User

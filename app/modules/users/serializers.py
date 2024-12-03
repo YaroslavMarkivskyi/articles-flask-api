@@ -18,7 +18,9 @@ class UserSerializer:
             username=data["username"],
             email=data["email"],
             role=data["role"],
-            password=data["password"],  # Передбачається, що пароль уже захешовано
+            password=data[
+                "password"
+            ],  # Передбачається, що пароль уже захешовано
         )
 
     def to_dict(self):

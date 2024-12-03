@@ -17,9 +17,9 @@ db_port = os.getenv("DB_PORT", "")
 db_name = os.getenv("DB_NAME", "")
 
 
-DATABASE_URL = f"postgresql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
+DB_URL = f"postgresql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
 
-app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
+app.config["SQLALCHEMY_DATABASE_URI"] = DB_URL
 app.config["SECRET_KEY"] = os.getenv("APP_SECRET_KEY", "")
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "default_secret")
 

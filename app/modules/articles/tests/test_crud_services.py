@@ -82,7 +82,9 @@ def test_get_article_by_id(client, valid_article_dto):
 
 
 def test_get_article_by_title(client, valid_article_dto):
-    article = ArticleService.get_article_by_title(valid_article_dto.title).first()
+    article = ArticleService.get_article_by_title(
+        valid_article_dto.title
+    ).first()
     assert article.title == valid_article_dto.title
 
 
@@ -94,7 +96,9 @@ def test_update_article(client, valid_article_dto):
         description="Updated Description",
         body="Updated Body",
     )
-    updated_article = ArticleService.update_article(valid_article_dto.id, updated_dto)
+    updated_article = ArticleService.update_article(
+        valid_article_dto.id, updated_dto
+    )
     assert updated_article.title == "Updated Title"
     assert updated_article.description == "Updated Description"
     assert updated_article.body == "Updated Body"

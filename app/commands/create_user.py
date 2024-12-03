@@ -9,7 +9,9 @@ from ..setup.utils import UserRole
 
 
 @click.command("create-user")
-@click.option("--username", prompt="Username", help="The username for the new user.")
+@click.option(
+    "--username", prompt="Username", help="The username for the new user."
+)
 @click.option("--email", prompt="Email", help="The email for the new user.")
 @click.option(
     "--role",
@@ -26,7 +28,6 @@ from ..setup.utils import UserRole
 )
 @with_appcontext
 def create_user(username, email, role, password):
-    """Creates a new user with a specified role."""
     if (
         User.query.filter_by(username=username).first()
         or User.query.filter_by(email=email).first()
@@ -35,7 +36,9 @@ def create_user(username, email, role, password):
         return
 
     hashed_password = generate_password_hash(password)
-    new_user = User(username=username, email=email, role=role, password=hashed_password)
+    new_user = User(
+        username=username, email=email, role=role, password=hashed_password
+    )
 
     try:
         db.session.add(new_user)

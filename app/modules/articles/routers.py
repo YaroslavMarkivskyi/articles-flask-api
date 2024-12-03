@@ -17,7 +17,9 @@ articles_bp = Blueprint("articles", __name__, url_prefix="/articles")
 @swag_from("./swagger.yml")
 def get_articles():
     entity_articles = ArticleService.get_all_articles()
-    json_articles = [ArticleSerializer.to_dict(article) for article in entity_articles]
+    json_articles = [
+        ArticleSerializer.to_dict(article) for article in entity_articles
+    ]
     return jsonify({"articles": json_articles}), HTTPStatus.OK
 
 

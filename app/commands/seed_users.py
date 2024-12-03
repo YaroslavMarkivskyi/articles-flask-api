@@ -11,9 +11,15 @@ fake = Faker()
 
 
 @click.command("seed-users")
-@click.option("--admin_count", default=2, type=int, help="Number of users to create")
-@click.option("--editor_count", default=5, type=int, help="Number of users to create")
-@click.option("--viewer_count", default=10, type=int, help="Number of users to create")
+@click.option(
+    "--admin_count", default=2, type=int, help="Number of admin to create"
+)
+@click.option(
+    "--editor_count", default=5, type=int, help="Number of editor to create"
+)
+@click.option(
+    "--viewer_count", default=10, type=int, help="Number of viewer to create"
+)
 @click.option(
     "--password",
     prompt="Password",
@@ -39,7 +45,9 @@ def create_users(role, count, password):
         try:
             db.session.add(new_user)
             db.session.commit()
-            click.echo(f"User {username} with role {role} created successfully.")
+            click.echo(
+                f"User {username} with role {role} created successfully."
+            )
         except Exception as e:
             click.echo(f"Error creating user: {e}")
 

@@ -22,7 +22,8 @@ class ArticleValidator:
             or "body" not in data
         ):
             abort(
-                HTTPStatus.BAD_REQUEST, description="Missing data for required fields"
+                HTTPStatus.BAD_REQUEST,
+                description="Missing data for required fields",
             )
 
     @staticmethod

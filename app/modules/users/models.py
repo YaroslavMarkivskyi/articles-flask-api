@@ -6,7 +6,10 @@ from app.setup.settings import db
 class User(db.Model):
     __tablename__ = "users"
     id = db.Column(
-        db.Integer, db.Sequence("user_id_seq"), primary_key=True, autoincrement=True
+        db.Integer,
+        db.Sequence("user_id_seq"),
+        primary_key=True,
+        autoincrement=True,
     )
     username = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(50), nullable=False, unique=True)

@@ -1,5 +1,3 @@
-from http import HTTPStatus
-
 import pytest
 from flask import Flask
 from sqlalchemy.exc import IntegrityError
@@ -58,7 +56,7 @@ def test_create_user(client, valid_user_dto):
     assert user.role == valid_user_dto.role
 
 
-def test_create_user_with_existing_email(client, valid_user_dto, existing_user):
+def test_create_user_with_existing_email(client, existing_user):
     duplicate_dto = UserSerializer(
         id=None,
         username="anotheruser",

@@ -44,7 +44,9 @@ def test_create_article(session):
     session.add(article)
     session.commit()
 
-    saved_article = session.query(Article).filter_by(title="Test Article").first()
+    saved_article = (
+        session.query(Article).filter_by(title="Test Article").first()
+    )
     assert saved_article is not None
     assert saved_article.title == "Test Article"
     assert saved_article.author.username == "testuser"
@@ -103,7 +105,9 @@ def test_delete_article(session):
     session.delete(article)
     session.commit()
 
-    deleted_article = session.query(Article).filter_by(title="Delete Article").first()
+    deleted_article = (
+        session.query(Article).filter_by(title="Delete Article").first()
+    )
     assert deleted_article is None
 
 
@@ -126,6 +130,8 @@ def test_article_relationship(session):
     session.add(article)
     session.commit()
 
-    saved_article = session.query(Article).filter_by(title="Test Article").first()
+    saved_article = (
+        session.query(Article).filter_by(title="Test Article").first()
+    )
     assert saved_article is not None
     assert saved_article.author.username == "testuser"

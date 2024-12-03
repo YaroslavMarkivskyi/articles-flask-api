@@ -21,7 +21,8 @@ class UserValidator:
             or "role" not in data
         ):
             abort(
-                HTTPStatus.BAD_REQUEST, description="Missing data for required fields"
+                HTTPStatus.BAD_REQUEST,
+                description="Missing data for required fields",
             )
 
     @staticmethod
@@ -32,4 +33,7 @@ class UserValidator:
     @staticmethod
     def is_valid_password(user_password, password):
         if not check_password_hash(user_password, password):
-            abort(HTTPStatus.UNAUTHORIZED, description="Invalid username or password")
+            abort(
+                HTTPStatus.UNAUTHORIZED,
+                description="Invalid username or password",
+            )
