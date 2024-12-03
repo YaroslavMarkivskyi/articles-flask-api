@@ -74,7 +74,7 @@ def login():
     if user is None or not check_password_hash(user.password, password):
         abort(HTTPStatus.UNAUTHORIZED, description="Invalid username or password")
 
-    access_token = create_access_token(identity=user.id)
+    access_token = create_access_token(identity=str(user.id))
     return jsonify({"access_token": access_token}), HTTPStatus.OK
 
 
