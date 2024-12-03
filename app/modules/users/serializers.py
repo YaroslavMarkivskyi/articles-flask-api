@@ -27,6 +27,5 @@ class UserSerializer:
             "id": self.id,
             "username": self.username,
             "email": self.email,
-            "role": self.role,
-            "password": self.password,  # У продакшені пароль зазвичай не повертається
+            "role": self.role
         }

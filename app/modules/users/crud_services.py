@@ -1,7 +1,8 @@
 from typing import Optional
-
+from flask import abort
 from .models import User, db
 from .serializers import UserSerializer
+from http import HTTPStatus
 
 
 class UserService:
@@ -34,7 +35,7 @@ class UserService:
         """Оновлення інформації про користувача."""
         user = User.query.get(user_id)
         if not user:
-            raise ValueError("User not found")
+            abort(HTTPStatus.NOT_FOUND, description="Article not found")
         user.username = dto.username
         user.email = dto.email
         user.role = dto.role
@@ -47,6 +48,6 @@ class UserService:
         """Видалення користувача за ідентифікатором."""
         user = User.query.get(user_id)
         if not user:
-            raise ValueError("User not found")
+            abort(HTTPStatus.NOT_FOUND, description="Article not found")
         db.session.delete(user)
         db.session.commit()

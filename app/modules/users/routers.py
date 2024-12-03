@@ -28,7 +28,7 @@ def register_user():
     data = request.json
     # ArticleValidator.is_exist_fields(data)
     dto_user = UserSerializer.from_dict(data)
-    entity_user = UserService.create_article(dto_user)
+    entity_user = UserService.create_user(dto_user)
     json_user = UserSerializer.to_dict(entity_user)
     return jsonify(json_user), HTTPStatus.CREATED
 
@@ -36,7 +36,7 @@ def register_user():
 @users_bp.route("/<int:user_id>", methods=[HTTPMethod.GET])
 @jwt_required()
 def get_user(user_id):
-    entity_user = UserService.get_article_by_id(user_id)
+    entity_user = UserService.get_user_by_id(user_id)
     # ArticleValidator.is_exist_article(entity_user)
     json_user = UserSerializer.to_dict(entity_user)
     return jsonify(json_user), HTTPStatus.OK
@@ -51,7 +51,7 @@ def update_user(user_id):
     dto_user = UserSerializer.from_dict(data)
     # ArticleValidator.is_exist_article(dto_article)
 
-    entity_user = UserService.update_article(user_id, dto_user)
+    entity_user = UserService.update_user(user_id, dto_user)
     json_user = UserSerializer.to_dict(entity_user)
     return jsonify(json_user), HTTPStatus.OK
 
@@ -60,7 +60,7 @@ def update_user(user_id):
 @users_bp.route("/<int:user_id>",  methods=[HTTPMethod.DELETE])
 @jwt_required()
 def delete_user(user_id):
-    UserService.delete_article(user_id)
+    UserService.delete_user(user_id)
     return jsonify({"message": "Book deleted successfully"}), HTTPStatus.OK
 
 
