@@ -1,0 +1,156 @@
+swagger: "2.0"
+info:
+  title: "Article API"
+  description: "API for managing articles"
+  version: "1.0.0"
+host: "127.0.0.1:8000"
+basePath: "/"
+schemes:
+  - "http"
+
+paths:
+  /articles/:
+    get:
+      summary: "Retrieve all articles"
+      responses:
+        200:
+          description: "A list of all articles"
+          schema:
+            type: object
+            properties:
+              articles:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    author_id:
+                      type: integer
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    body:
+                      type: string
+    post:
+      summary: "Add a new article"
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              author_id:
+                type: integer
+              title:
+                type: string
+              description:
+                type: string
+              body:
+                type: string
+            example:
+              author_id: 1
+              title: "The new article"
+              description: "The new article description"
+              body: "The new article body"
+      responses:
+        201:
+          description: "The newly added article"
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              author_id:
+                type: integer
+              title:
+                type: string
+              description:
+                type: string
+              body:
+                type: string
+
+  /articles/{article_id}:
+    get:
+      summary: "Retrieve a specific article by ID"
+      parameters:
+        - name: article_id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "Details of the specified article"
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              author_id:
+                type: integer
+              title:
+                type: string
+              description:
+                type: string
+              body:
+                type: string
+        404:
+          description: "Article not found"
+    put:
+      summary: "Update an existing article"
+      parameters:
+        - name: article_id
+          in: path
+          required: true
+          type: integer
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              author_id:
+                type: integer
+              title:
+                type: string
+              description:
+                type: string
+              body:
+                type: string
+      responses:
+        200:
+          description: "The updated article information"
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              author_id:
+                type: integer
+              title:
+                type: string
+              description:
+                type: string
+              body:
+                type: string
+        404:
+          description: "Article not found"
+    delete:
+      summary: "Delete an article"
+      parameters:
+        - name: article_id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "Article deletion confirmation"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        404:
+          description: "Article not found"

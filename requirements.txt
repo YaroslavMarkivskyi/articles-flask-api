@@ -1,4 +1,5 @@
 flask
+flasgger
 gunicorn
 flask_sqlalchemy
 flask_jwt_extended

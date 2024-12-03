@@ -2,6 +2,7 @@ from flask import request, jsonify
 from http import HTTPStatus, HTTPMethod
 from flask import Blueprint
 from flask_jwt_extended import jwt_required
+from flasgger import swag_from
 
 from .crud_services import ArticleService
 from .serializers import ArticleSerializer
@@ -14,6 +15,7 @@ articles_bp = Blueprint('articles', __name__, url_prefix='/articles')
 
 @articles_bp.route('/', methods=[HTTPMethod.GET])
 @jwt_required()
+@swag_from("./swagger.yml")
 def get_articles():
     entity_articles = ArticleService.get_all_articles()
     json_articles = [ArticleSerializer.to_dict(article) for article in entity_articles]
@@ -22,6 +24,7 @@ def get_articles():
 
 @articles_bp.route("/<int:article_id>", methods=[HTTPMethod.GET])
 @jwt_required()
+@swag_from("./swagger.yml")
 def get_article(article_id):
     entity_article = ArticleService.get_article_by_id(article_id)
     ArticleValidator.is_exist_article(entity_article)
@@ -31,6 +34,7 @@ def get_article(article_id):
 
 @articles_bp.route("/", methods=[HTTPMethod.POST])
 @jwt_required()
+@swag_from("./swagger.yml")
 def add_article():
     data = request.json
     ArticleValidator.is_exist_fields(data)
@@ -43,6 +47,7 @@ def add_article():
 @articles_bp.route("/<int:article_id>", methods=[HTTPMethod.PUT])
 @jwt_required()
 @editor_required
+@swag_from("./swagger.yml")
 def update_article(article_id):
     data = request.json
     ArticleValidator.is_exist_fields(data)
@@ -59,6 +64,7 @@ def update_article(article_id):
 @articles_bp.route("/<int:article_id>", methods=[HTTPMethod.DELETE])
 @jwt_required()
 @admin_required
+@swag_from("./swagger.yml")
 def delete_article(article_id):
     ArticleService.delete_article(article_id)
     return jsonify({"message": "Book deleted successfully"}), HTTPStatus.OK
