@@ -8,13 +8,12 @@ from http import HTTPStatus
 class UserService:
     @staticmethod
     def create_user(dto: UserSerializer) -> User:
-        """Створення нового користувача."""
         new_user = User(
             id=dto.id,
             username=dto.username,
             email=dto.email,
             role=dto.role,
-            password=dto.password,  # Передбачається, що пароль хешується перед передачею
+            password=dto.password,
         )
         db.session.add(new_user)
         db.session.commit()
@@ -22,32 +21,32 @@ class UserService:
 
     @staticmethod
     def get_all_users():
-        """Отримання списку всіх користувачів."""
         return User.query.all()
 
     @staticmethod
     def get_user_by_id(user_id: int) -> Optional[User]:
-        """Отримання користувача за ідентифікатором."""
         return User.query.get(user_id)
 
     @staticmethod
+    def get_user_by_username(username: str) -> User:
+        return User.query.filter_by(username=username).first()
+
+    @staticmethod
     def update_user(user_id: int, dto: UserSerializer) -> User:
-        """Оновлення інформації про користувача."""
         user = User.query.get(user_id)
         if not user:
-            abort(HTTPStatus.NOT_FOUND, description="Article not found")
+            abort(HTTPStatus.NOT_FOUND, description="User not found")
         user.username = dto.username
         user.email = dto.email
         user.role = dto.role
-        user.password = dto.password  # Передбачається, що пароль хешується перед передачею
+        user.password = dto.password
         db.session.commit()
         return user
 
     @staticmethod
     def delete_user(user_id: int):
-        """Видалення користувача за ідентифікатором."""
         user = User.query.get(user_id)
         if not user:
-            abort(HTTPStatus.NOT_FOUND, description="Article not found")
+            abort(HTTPStatus.NOT_FOUND, description="User not found")
         db.session.delete(user)
         db.session.commit()

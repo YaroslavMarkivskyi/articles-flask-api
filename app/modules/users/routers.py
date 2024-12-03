@@ -12,12 +12,14 @@ from .crud_services import UserService
 from .serializers import UserSerializer
 from .permissions import admin_required, editor_required
 from .validators import UserValidator
+from flasgger import swag_from
 
 users_bp = Blueprint('users', __name__, url_prefix='/users')
 
 
 @users_bp.route("/", methods=[HTTPMethod.GET])
 @jwt_required()
+@swag_from("./swagger.yml")
 def get_users():
     entity_users = UserService.get_all_users()
     json_users = [UserSerializer.to_dict(user) for user in entity_users]
@@ -26,6 +28,7 @@ def get_users():
 @users_bp.route("/", methods=[HTTPMethod.POST])
 @jwt_required()
 @admin_required
+@swag_from("./swagger.yml")
 def register_user():
     data = request.json
     UserValidator.is_exist_fields(data)
@@ -37,6 +40,7 @@ def register_user():
 
 @users_bp.route("/<int:user_id>", methods=[HTTPMethod.GET])
 @jwt_required()
+@swag_from("./swagger.yml")
 def get_user(user_id):
     entity_user = UserService.get_user_by_id(user_id)
     UserValidator.is_exist_user(entity_user)
@@ -47,6 +51,7 @@ def get_user(user_id):
 @users_bp.route("/<int:user_id>", methods=[HTTPMethod.PUT])
 @jwt_required()
 @editor_required
+@swag_from("./swagger.yml")
 def update_user(user_id):
     data = request.json
     UserValidator.is_exist_fields(data)
@@ -62,6 +67,7 @@ def update_user(user_id):
 @users_bp.route("/<int:user_id>",  methods=[HTTPMethod.DELETE])
 @jwt_required()
 @admin_required
+@swag_from("./swagger.yml")
 def delete_user(user_id):
     entity_user = UserService.get_article_by_id(user_id)
     UserValidator.is_exist_user(entity_user)
@@ -70,6 +76,7 @@ def delete_user(user_id):
 
 
 @users_bp.route('/login', methods=['POST'])
+@swag_from("./swagger.yml")
 def login():
     data = request.get_json()
     username = data.get("username")
@@ -85,6 +92,7 @@ def login():
 
 @users_bp.route("/user_profile", methods=[HTTPMethod.GET])
 @jwt_required()
+@swag_from("./swagger.yml")
 def user_profile():
     user_id = get_jwt_identity()
     entity_user = UserService.get_user_by_id(user_id)
@@ -96,6 +104,7 @@ def user_profile():
 
 @users_bp.route("/search", methods=[HTTPMethod.GET])
 @jwt_required()
+@swag_from("./swagger.yml")
 def search_user_by_username():
     username = request.args.get("username")  # Отримання параметра з URL
     UserValidator.is_exist_username(username)

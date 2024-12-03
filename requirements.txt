@@ -8,3 +8,4 @@ faker
 flask-cors
 pytest-flask
 pytest
+pytest-cov

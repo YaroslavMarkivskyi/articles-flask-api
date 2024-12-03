@@ -1,3 +1,12 @@
+swagger: "2.0"
+info:
+  title: "Bookstore API"
+  description: "API for managing a bookstore"
+  version: "1.0.0"
+host: "127.0.0.1:8000"
+basePath: "/"
+schemes:
+  - "http"
 paths:
   /articles/:
     get:

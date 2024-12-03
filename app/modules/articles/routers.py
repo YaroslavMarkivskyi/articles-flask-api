@@ -32,10 +32,11 @@ def get_article(article_id):
     return jsonify(json_article), HTTPStatus.OK
 
 
-@articles_bp.route("/search/<str:title>", methods=[HTTPMethod.GET])
+@articles_bp.route("/search", methods=[HTTPMethod.GET])
 @jwt_required()
 @swag_from("./swagger.yml")
-def get_article_by_title(title):
+def get_article_by_title():
+    title = request.args.get("title")
     entity_article = ArticleService.get_article_by_title(title)
     ArticleValidator.is_exist_article(entity_article)
     json_article = ArticleSerializer.to_dict(entity_article)

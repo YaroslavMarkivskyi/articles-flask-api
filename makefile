@@ -11,13 +11,13 @@ down:
 	docker compose down
 
 migrate:
-	docker compose -f local.yml run --rm api flask init-db
+	docker compose run --rm app flask init-db
 
 create-user:
-	docker compose -f local.yml run --rm api flask create-user
+	docker compose run --rm app flask create-user
 
 seed-users:
-	docker compose -f local.yml run --rm api flask seed-users --admin_count 2 --editor_count 5 --viewer_count 10 --password my_secure_password
+	docker compose run --rm app flask seed-users --admin_count 2 --editor_count 5 --viewer_count 10 --password my_secure_password
 
 seed-articles:
-	docker compose -f local.yml run --rm api flask seed-articles --count 20
+	docker compose run --rm app flask seed-articles --count 20
