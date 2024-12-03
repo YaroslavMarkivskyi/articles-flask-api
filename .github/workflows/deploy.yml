@@ -3,10 +3,6 @@ name: Deploy to Production
 on:
     workflow_call:
       secrets:
-        DOCKERHUB_USER:
-          required: true
-        DOCKERHUB_TOKEN:
-          required: true
         VM_HOST:
           required: true
         VM_USERNAME:
@@ -17,7 +13,7 @@ on:
           required: true
         DB_PASS:
           required: true
-        DJANGO_SECRET_KEY:
+        JWT_SECRET_KEY:
           required: true
         DD_API_KEY:
           required: true
@@ -56,7 +52,7 @@ jobs:
             echo "DB_NAME=${{ vars.DB_NAME }}" >> .env
             echo "DB_USER=${{ vars.DB_USER }}" >> .env
             echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
-            echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
+            echo "DJANGO_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> .env
             echo "DJANGO_ALLOWED_HOSTS=${{ secrets.VM_HOST }}" >> .env
 
             docker-compose -f docker-compose-deploy.yml up -d --build
