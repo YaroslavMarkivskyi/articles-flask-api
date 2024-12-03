@@ -15,9 +15,7 @@ on:
           required: true
         JWT_SECRET_KEY:
           required: true
-        DD_API_KEY:
-          required: true
-      inputs:
+        inputs:
         WORK_APP_DIR:
           required: true
           type: string

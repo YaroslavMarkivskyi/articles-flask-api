@@ -9,16 +9,10 @@ on:
 jobs:
   test-and-lint:
     uses: ./.github/workflows/test-and-lint.yml
-    # secrets:
-      # DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
-      # DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
   build:
     uses: ./.github/workflows/build.yml
     needs: test-and-lint
-    # secrets:
-    #   DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
-    #   DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
   deploy:
     uses: ./.github/workflows/deploy.yml
